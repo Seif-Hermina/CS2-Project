@@ -11,6 +11,7 @@ public:
     explicit GameScene(QObject *parent = nullptr);
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+    void spawnEnemyBricks(); //spawning bricks
 
 private:
     PlayerBlock *playerBlock;

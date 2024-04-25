@@ -9,12 +9,14 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    enemybrick.cpp \
     gamescene.cpp \
     main.cpp \
     mainwindow.cpp \
     playerblock.cpp
 
 HEADERS += \
+    enemybrick.h \
     gamescene.h \
     mainwindow.h \
     playerblock.h

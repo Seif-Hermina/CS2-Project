@@ -1,4 +1,5 @@
 #include "gamescene.h"
+#include "enemybrick.h"
 
 GameScene::GameScene(QObject *parent) : QGraphicsScene(parent)
 {
@@ -32,5 +33,32 @@ void GameScene::keyReleaseEvent(QKeyEvent *event)
         break;
     default:
         break;
+    }
+}
+
+void GameScene::spawnEnemyBricks(){
+    const int rowCount = 7; // Number of colums of bricks
+    const int colCount = 5; // Number of rows of bricks
+    const int brickWidth = 50;
+    const int brickHeight = 20;
+
+
+    //Spawning rows and columns of bricks
+    for (int col = 0; col<colCount; ++col) {
+        for(int row = 0; row<rowCount; ++row){
+            ENEMYBRICK* brick = new ENEMYBRICK();
+
+            //calculating position of each brick in the grid
+            int x = col * brickWidth;
+            int y = row * brickHeight;
+
+            //setting the position
+            brick->setPos(x,y);
+
+            //adding to scene
+            addItem(brick);
+
+        }
+
     }
 }
