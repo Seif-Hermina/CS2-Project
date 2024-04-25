@@ -1,11 +1,16 @@
 #include "gamescene.h"
 #include "enemybrick.h"
+#include "ball.h"
+#include <QKeyEvent>
 
 GameScene::GameScene(QObject *parent) : QGraphicsScene(parent)
 {
     // Create player block
     playerBlock = new PlayerBlock(this);
     addItem(playerBlock);
+
+    Ball* ball = new Ball();
+    addItem(ball);
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)
@@ -57,7 +62,6 @@ void GameScene::spawnEnemyBricks(){
 
             //adding to scene
             addItem(brick);
-
         }
 
     }
