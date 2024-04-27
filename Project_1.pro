@@ -9,20 +9,17 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ball.cpp \
     enemybrick.cpp \
-    gamescene.cpp \
     main.cpp \
-    mainwindow.cpp \
     playerblock.cpp
 
 HEADERS += \
+    ball.h \
     enemybrick.h \
-    gamescene.h \
-    mainwindow.h \
     playerblock.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

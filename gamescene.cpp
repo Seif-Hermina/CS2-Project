@@ -1,4 +1,4 @@
-#include "gamescene.h"
+/*#include "gamescene.h"
 #include "enemybrick.h"
 #include "ball.h"
 #include <QKeyEvent>
@@ -9,8 +9,38 @@ GameScene::GameScene(QObject *parent) : QGraphicsScene(parent)
     playerBlock = new PlayerBlock(this);
     addItem(playerBlock);
 
-    Ball* ball = new Ball();
-    addItem(ball);
+    playerBlock->setPos(100,450);
+
+   // Ball* ball = new Ball();
+    //addItem(ball);
+
+    score = 0;
+    health = 3;
+
+    QFont font;
+    font.setPointSize(16);
+    QColor color1(Qt::blue);
+    scoreMsg = new QGraphicsTextItem(QString("Score: ") + QString::number(score));
+    scoreMsg->setFont(font);
+    scoreMsg->setDefaultTextColor(color1);
+    scoreMsg->setPos(10, 40);
+    addItem(scoreMsg);
+
+    QColor color2(Qt::red);
+    healthMsg = new QGraphicsTextItem(QString("Health: ") + QString::number(health));
+    healthMsg->setFont(font);
+    healthMsg->setDefaultTextColor(color2);
+    healthMsg->setPos(10, 10);
+    font.setPointSize(72);
+    addItem(healthMsg);
+
+    endMsg = new QGraphicsTextItem(QString("GAME OVER"));
+    endMsg->setFont(font);
+    endMsg->setDefaultTextColor(color2);
+    endMsg->setPos(130, 150);
+
+
+
 }
 
 void GameScene::keyPressEvent(QKeyEvent *event)
@@ -66,3 +96,5 @@ void GameScene::spawnEnemyBricks(){
 
     }
 }
+
+*/

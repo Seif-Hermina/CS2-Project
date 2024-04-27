@@ -1,53 +1,25 @@
 #include "playerblock.h"
 #include <QKeyEvent>
 
-PlayerBlock::PlayerBlock(QObject *parent) : QObject(parent),
-    width(80), height(20), speed(8)
-{
-    rect = QRectF(0, 0, width, height);
-    xVelocity = 0;
+PlayerBlock::PlayerBlock() {
+
 }
 
-QRectF PlayerBlock::getRect() const
+void PlayerBlock::keyPressEvent(QKeyEvent *event)
 {
-    return rect;
-}
-
-void PlayerBlock::setRect(const QRectF &value)
-{
-    rect = value;
-}
-
-qreal PlayerBlock::getXVelocity() const
-{
-    return xVelocity;
-}
-
-void PlayerBlock::setXVelocity(const qreal &value)
-{
-    xVelocity = value;
-}
-
-void PlayerBlock::moveLeft()
-{
-    if (rect.left() > 0)
+    // *******  Event Handling for the Player ********
+    if(event->key()== Qt::Key_Left)
     {
-        rect.moveLeft(rect.left() - speed);
+        if(x()>0) // to prevent the player from getting out of the screen
+        {
+            setPos(x()-10,y());
+        }
     }
-    else
-    {
-        emit hitWall();
+    else if(event->key()== Qt::Key_Right)
+
+    { if(x()+100<800) // to prevent the player from getting out of the screen
+            setPos(x()+10,y());
     }
 }
 
-void PlayerBlock::moveRight()
-{
-    if (rect.right() < 800) // Assuming a fixed width of the game scene
-    {
-        rect.moveRight(rect.right() + speed);
-    }
-    else
-    {
-        emit hitWall();
-    }
-}
+

@@ -2,9 +2,16 @@
 #include <QGraphicsScene>
 #include "playerblock.h"
 #include "enemybrick.h"
+#include <QTimer>
+#include <QBrush>
+#include <QObject>
 
 Ball::Ball(QGraphicsItem* parent) : QGraphicsEllipseItem(parent), dx(2), dy(-2) {
     setRect(0, 0, 10, 10); // size of the ball
+    QBrush bbrush;
+    bbrush.setStyle(Qt::SolidPattern);
+    bbrush.setColor(Qt::red);
+    setBrush(bbrush);
 }
 
 void Ball::advance(int phase) {
