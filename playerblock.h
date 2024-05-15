@@ -9,11 +9,9 @@ class PlayerBlock : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
+
     void keyPressEvent(QKeyEvent * event);
     PlayerBlock();
-
-signals:
-    void hitWall();
 
 private:
     QRectF rect;
@@ -22,5 +20,6 @@ private:
     qreal width;
     qreal height;
 };
+
 
 #endif // PLAYERBLOCK_H

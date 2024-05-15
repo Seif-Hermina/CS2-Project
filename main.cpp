@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     PlayerBlock *playerblock = new  PlayerBlock();
 
     // *******  Setting the foucs to the Player ********
-    playerblock->setRect(10, 10, 200, 100);
+    playerblock->setRect(10, 10, 200, 20);
     QBrush pbrush;
     pbrush.setStyle(Qt::SolidPattern);
     pbrush.setColor(Qt::blue);
@@ -38,22 +38,20 @@ int main(int argc, char *argv[])
     playerblock->setFlag(QGraphicsItem::ItemIsFocusable);
     playerblock->setFocus();
     // *******  Adjust the location of the Player (middle of the screen) ********
-    playerblock->setPos(view->width()/2, view->height() - 100);
+    playerblock->setPos(view->width()/2, view->height() - 50);
     scene->addItem(playerblock);
 
+    // Create the Ball
+    Ball *ball = new Ball(scene);
+    ball->setPos(400, 400); // Position the ball
+    scene->addItem(ball);
+
+    // Create the ENEMYBRICK after creating the Ball
     ENEMYBRICK *enemybrick = new ENEMYBRICK(scene);
     enemybrick->spawnEnemyBricks();
 
-    // Create the Ball
-    Ball *ball = new Ball();
-    // Add ball to the scene
-    scene->addItem(ball);
-
-    // Set the initial position of the ball
-    ball->setPos(400, 400); // Example position
-
-
-
+    // Assign the ENEMYBRICK to the Ball
+    ball->setEnemyBrick(enemybrick);
 
     return a.exec();
 }

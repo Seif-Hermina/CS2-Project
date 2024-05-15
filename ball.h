@@ -2,16 +2,23 @@
 #define BALL_H
 
 #include <QGraphicsEllipseItem>
+#include <QObject>
+#include "enemybrick.h"
 
-class Ball : public QGraphicsEllipseItem {
+
+class Ball : public QObject, public QGraphicsEllipseItem {
+    Q_OBJECT
 public:
-    Ball(QGraphicsItem* parent = nullptr);
-    void advance(int phase);
-    void checkCollision();
+    Ball(QGraphicsScene *scene, QGraphicsItem *parent = nullptr);
+    void move();
+    qreal xVelocity;
+    qreal yVelocity;
+    void setEnemyBrick(ENEMYBRICK *brick);
+
 
 private:
-    qreal dx; // horizontal velocity
-    qreal dy; // vertical velocity
+    void checkCollision();
+    ENEMYBRICK *enemyBrick;
 };
 
 #endif // BALL_H

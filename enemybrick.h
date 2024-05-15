@@ -4,6 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QBrush>
+#include <QObject>
 
 class ENEMYBRICK: public QGraphicsRectItem
 {
@@ -18,10 +19,10 @@ public:
     void increase();
     void decrease();
 
+
 private:
     QGraphicsScene *m_scene;
 
 };
 
 #endif // ENEMYBRICK_H
-

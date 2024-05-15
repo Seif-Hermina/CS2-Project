@@ -1,4 +1,5 @@
 #include "enemybrick.h"
+#include "ball.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QBrush>
@@ -74,14 +75,21 @@ void ENEMYBRICK::increase()
 
 }
 
-void ENEMYBRICK::decrease()
-{
+void ENEMYBRICK::decrease() {
     scene()->removeItem(healthMsg);
     health--;
-    healthMsg->setPlainText((QString("Health: ") + QString::number(health)));
+    healthMsg->setPlainText(QString("Health: ") + QString::number(health));
     scene()->addItem(healthMsg);
-    if(health < 1)
-    {
-        QApplication::quit();
+
+
+    if (health > 0 && scene()) {
+        // Respawn the ball
+        Ball *ball = new Ball(scene(), nullptr);
+        ball->setPos(400, 400); // Position the ball
+        scene()->addItem(ball);
+        // Set the ENEMYBRICK pointer for the new ball
+        ball->setEnemyBrick(this);
     }
+
 }
+
