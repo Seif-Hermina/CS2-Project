@@ -17,7 +17,7 @@ void PlayerBlock::keyPressEvent(QKeyEvent *event)
     }
     else if(event->key()== Qt::Key_Right)
 
-    { if(x()+220<800) // to prevent the player from getting out of the screen
+    { if(x()+235<800) // to prevent the player from getting out of the screen
             setPos(x()+25,y());
     }
 }

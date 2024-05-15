@@ -11,12 +11,14 @@ CONFIG += c++17
 SOURCES += \
     ball.cpp \
     enemybrick.cpp \
+    game.cpp \
     main.cpp \
     playerblock.cpp
 
 HEADERS += \
     ball.h \
     enemybrick.h \
+    game.h \
     playerblock.h
 
 FORMS +=
