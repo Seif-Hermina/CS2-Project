@@ -35,7 +35,7 @@ void Ball::checkCollision() {
     if (x() <= 0 || x() + rect().width() >= scene()->width()) {
         xVelocity = -xVelocity; // Reverse the horizontal direction
     }
-    if (y() <= 0) {
+    if (y() <= 100) {  //100 so it does not get stuck above score and lives
         yVelocity = -yVelocity; // Reverse the vertical direction
     }
 

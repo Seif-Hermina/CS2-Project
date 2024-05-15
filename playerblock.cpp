@@ -12,13 +12,13 @@ void PlayerBlock::keyPressEvent(QKeyEvent *event)
     {
         if(x()>0) // to prevent the player from getting out of the screen
         {
-            setPos(x()-10,y());
+            setPos(x()-25,y());
         }
     }
     else if(event->key()== Qt::Key_Right)
 
     { if(x()+220<800) // to prevent the player from getting out of the screen
-            setPos(x()+10,y());
+            setPos(x()+25,y());
     }
 }
 
