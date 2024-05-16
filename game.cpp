@@ -8,7 +8,8 @@
 #include<QGraphicsView>
 #include <QBrush>
 
-game::game(QWidget *parent) {
+game::game() {
+
 
     // *******  Create the View ********
     QGraphicsView *view=new QGraphicsView();
@@ -25,20 +26,7 @@ game::game(QWidget *parent) {
     view->show();
 
     // *******  Create the Player ********
-    PlayerBlock *playerblock = new  PlayerBlock();
-
-    // *******  Setting the foucs to the Player ********
-    playerblock->setRect(10, 10, 200, 20);
-    QBrush pbrush;
-    pbrush.setStyle(Qt::SolidPattern);
-    pbrush.setColor(Qt::blue);
-    playerblock->setBrush(pbrush);
-
-    playerblock->setFlag(QGraphicsItem::ItemIsFocusable);
-    playerblock->setFocus();
-    // *******  Adjust the location of the Player (middle of the screen) ********
-    playerblock->setPos(view->width()/2, view->height() - 50);
-    scene->addItem(playerblock);
+    PlayerBlock *playerBlock = new PlayerBlock(scene);
 
     // Create the Ball
     Ball *ball = new Ball(scene);
@@ -52,3 +40,4 @@ game::game(QWidget *parent) {
     // Assign the ENEMYBRICK to the Ball
     ball->setEnemyBrick(enemybrick);
 }
+

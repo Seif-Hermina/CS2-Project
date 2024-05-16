@@ -18,7 +18,7 @@ public:
     int health = 3;
     void increase();
     void decrease();
-
+    void respawnBall();
 
 private:
     QGraphicsScene *m_scene;

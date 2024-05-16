@@ -11,7 +11,8 @@ class PlayerBlock : public QObject, public QGraphicsRectItem
 public:
 
     void keyPressEvent(QKeyEvent * event);
-    PlayerBlock();
+    PlayerBlock(QGraphicsScene *scene, QGraphicsItem *parent = nullptr);
+
 
 private:
     QRectF rect;
@@ -19,6 +20,7 @@ private:
     qreal speed;
     qreal width;
     qreal height;
+
 };
 
 

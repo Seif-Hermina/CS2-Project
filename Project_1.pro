@@ -12,6 +12,7 @@ SOURCES += \
     ball.cpp \
     enemybrick.cpp \
     game.cpp \
+    gameoverwindow.cpp \
     main.cpp \
     playerblock.cpp
 
@@ -19,6 +20,7 @@ HEADERS += \
     ball.h \
     enemybrick.h \
     game.h \
+    gameoverwindow.h \
     playerblock.h
 
 FORMS +=

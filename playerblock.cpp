@@ -1,7 +1,23 @@
 #include "playerblock.h"
+#include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QBrush>
 
-PlayerBlock::PlayerBlock() {
+PlayerBlock::PlayerBlock(QGraphicsScene *scene, QGraphicsItem *parent) : QGraphicsRectItem(parent){
+
+    setRect(0, 0, 200, 20);
+
+    setPos(scene->width()/2, scene->height() - 50);
+
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+    brush.setColor(Qt::blue);
+    setBrush(brush);
+
+    setFlag(QGraphicsItem::ItemIsFocusable);
+    setFocus();
+
+    scene->addItem(this);
 
 }
 

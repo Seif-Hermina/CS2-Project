@@ -25,6 +25,11 @@ Ball::Ball(QGraphicsScene *scene, QGraphicsItem *parent) : QGraphicsEllipseItem(
 }
 
 void Ball::move() {
+    // Check if the game is over (health is 0)
+    if (enemyBrick && enemyBrick->health <= 0) {
+        return; // Stop moving the ball
+    }
+
     // Move the ball
     setPos(x() + xVelocity, y() + yVelocity);
     checkCollision();
@@ -39,33 +44,36 @@ void Ball::checkCollision() {
         yVelocity = -yVelocity; // Reverse the vertical direction
     }
 
-    // Check for collision with the player
+    // Check for collision with the player and enemy bricks
     QList<QGraphicsItem *> collidingItems = scene()->collidingItems(this);
     foreach (QGraphicsItem *item, collidingItems) {
         if (typeid(*item) == typeid(PlayerBlock)) {
             yVelocity = -yVelocity; // Reverse the vertical direction
             return;
-
         } else if (typeid(*item) == typeid(ENEMYBRICK)) {
             yVelocity = -yVelocity; // Reverse the vertical direction
-            scene()->removeItem(item); // Remove the enemy brick
-
-            /*
-            ENEMYBRICK *enemyBrick = dynamic_cast<ENEMYBRICK*>(item);
+            // Increase the score because the ball hit an enemy brick
             if (enemyBrick) {
                 enemyBrick->increase();
             }
-*/
-
+            // Remove the enemy brick from the scene
+            scene()->removeItem(item);
+            delete item; // Delete the brick to free memory
             return;
         }
     }
+
+    // Check for collision with the bottom border
     if (y() + rect().height() >= scene()->height()) {
+        // Decrease health because the ball hit the bottom border
         if (enemyBrick) {
             enemyBrick->decrease();
         }
+        // Respawn the ball at the initial position
+        setPos(scene()->width() / 2 - rect().width() / 2, scene()->height() / 2 - rect().height() / 2);
     }
 }
+
 
 void Ball::setEnemyBrick(ENEMYBRICK *brick) {
     enemyBrick = brick;

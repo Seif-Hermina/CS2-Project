@@ -1,10 +1,12 @@
 #include "enemybrick.h"
+#include "GameOverWindow.h"
 #include "ball.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QBrush>
 #include <QGraphicsTextItem>
 #include <QApplication>
+#include <QGraphicsView>
 
 ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent ): QGraphicsRectItem(parent), m_scene(scene) {
     setRect(0,100,160,30);
@@ -34,10 +36,6 @@ ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent ): QGraphics
     font.setPointSize(72);
     m_scene->addItem(healthMsg);
 
-    endMsg = new QGraphicsTextItem(QString("GAME OVER"));
-    endMsg->setFont(font);
-    endMsg->setDefaultTextColor(color2);
-    endMsg->setPos(130, 150);
 
 }
 
@@ -68,28 +66,46 @@ void ENEMYBRICK::spawnEnemyBricks(){
 
 void ENEMYBRICK::increase()
 {
-    scene()->removeItem(scoreMsg);
+    // Update the score and the score message
+
+    //scene()->removeItem(scoreMsg);
     score++;
     scoreMsg->setPlainText((QString("Score: ") + QString::number(score)));
-    scene()->addItem(scoreMsg);
-
+    //scene()->addItem(scoreMsg);
 }
 
 void ENEMYBRICK::decrease() {
-    scene()->removeItem(healthMsg);
+    //scene()->removeItem(healthMsg);
     health--;
     healthMsg->setPlainText(QString("Health: ") + QString::number(health));
-    scene()->addItem(healthMsg);
+    //scene()->addItem(healthMsg);
 
+    if (health <= 0) {
+        GameOverWindow *gameOverWindow = new GameOverWindow();
+        gameOverWindow->show();
 
-    if (health > 0 && scene()) {
-        // Respawn the ball
-        Ball *ball = new Ball(scene(), nullptr);
-        ball->setPos(400, 400); // Position the ball
-        scene()->addItem(ball);
-        // Set the ENEMYBRICK pointer for the new ball
-        ball->setEnemyBrick(this);
+        // Close the main game window
+        QWidget *mainWindow = m_scene->views().at(0)->window();
+        mainWindow->close();
+    } else {
+        respawnBall();
     }
-
 }
 
+
+void ENEMYBRICK::respawnBall() {
+    // Find the existing ball in the scene and delete it
+    foreach (QGraphicsItem *item, m_scene->items()) {
+        if (Ball *ball = dynamic_cast<Ball *>(item)) {
+            m_scene->removeItem(ball);
+            delete ball;
+            break;
+        }
+    }
+
+    // Create a new ball and add it to the scene
+    Ball *newBall = new Ball(m_scene);
+    newBall->setPos(400, 400);
+    m_scene->addItem(newBall);
+    newBall->setEnemyBrick(this); // Link the new ball to the enemy brick
+}
