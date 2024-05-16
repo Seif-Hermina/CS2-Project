@@ -21,6 +21,7 @@ private:
     qreal width;
     qreal height;
 
+
 };
 
 

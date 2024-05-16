@@ -10,17 +10,21 @@ CONFIG += c++17
 
 SOURCES += \
     ball.cpp \
+    congratswindow.cpp \
     enemybrick.cpp \
     game.cpp \
     gameoverwindow.cpp \
+    levelpassed.cpp \
     main.cpp \
     playerblock.cpp
 
 HEADERS += \
     ball.h \
+    congratswindow.h \
     enemybrick.h \
     game.h \
     gameoverwindow.h \
+    levelpassed.h \
     playerblock.h
 
 FORMS +=

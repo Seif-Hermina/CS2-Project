@@ -1,6 +1,8 @@
 #include "enemybrick.h"
 #include "GameOverWindow.h"
 #include "ball.h"
+#include "congratswindow.h"
+#include "levelpassed.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QBrush>
@@ -88,14 +90,23 @@ void ENEMYBRICK::nextLevel() {
             }
         }
 
+
         // Spawn new set of bricks for the next level
         spawnEnemyBricks(level);
 
         // Reset ball speed and position
         respawnBall();
+        Levelpassed *levelpassed = new Levelpassed();
+        levelpassed->show();
     } else {
         //! add here the congrats window with a button to exit. don't forget to remove the debug too.
-        qDebug() << "Game Over! Reached maximum level.";
+        Congratswindow *congratswindow = new Congratswindow();
+        congratswindow->show();
+
+        // Close the main game window
+        QWidget *mainWindow = m_scene->views().at(0)->window();
+        mainWindow->close();
+       // qDebug() << "Game Over! Reached maximum level.";
     }
 }
 
