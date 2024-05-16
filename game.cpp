@@ -33,9 +33,10 @@ game::game() {
     ball->setPos(400, 400); // Position the ball
     scene->addItem(ball);
 
-    // Create the ENEMYBRICK after creating the Ball
+    // Create the ENEMYBRICK
     ENEMYBRICK *enemybrick = new ENEMYBRICK(scene);
-    enemybrick->spawnEnemyBricks();
+    enemybrick->spawnEnemyBricks(enemybrick->level);
+
 
     // Assign the ENEMYBRICK to the Ball
     ball->setEnemyBrick(enemybrick);

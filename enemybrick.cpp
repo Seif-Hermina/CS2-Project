@@ -8,8 +8,8 @@
 #include <QApplication>
 #include <QGraphicsView>
 
-ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent ): QGraphicsRectItem(parent), m_scene(scene) {
-    setRect(0,100,160,30);
+ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent) : QGraphicsRectItem(parent), m_scene(scene) {
+    setRect(0, 100, 160, 30);
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::green);
@@ -17,6 +17,7 @@ ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent ): QGraphics
 
     score = 0;
     health = 3;
+    level = 1;
 
     QFont font;
     font.setPointSize(30);
@@ -35,50 +36,72 @@ ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent ): QGraphics
     healthMsg->setPos(10, 10);
     font.setPointSize(72);
     m_scene->addItem(healthMsg);
-
-
 }
 
-void ENEMYBRICK::spawnEnemyBricks(){
-    const int rowCount = 7; // Number of colums of bricks
-    const int colCount = 5; // Number of rows of bricks
+void ENEMYBRICK::spawnEnemyBricks(int level) {
+    const int rowCount = 1 + level; // Increase the number of rows with each level
+    const int colCount = 5; // number of columns
     const int brickWidth = 160;
     const int brickHeight = 30;
 
-
-    //Spawning rows and columns of bricks
-    for (int col = 0; col<colCount; ++col) {
-        for(int row = 0; row<rowCount; ++row){
+    // Spawning rows and columns of bricks
+    for (int col = 0; col < colCount; ++col) {
+        for (int row = 0; row < rowCount; ++row) {
             ENEMYBRICK* brick = new ENEMYBRICK(m_scene);
 
-            //calculating position of each brick in the grid
+            // Calculating position of each brick in the grid
             int x = col * brickWidth;
             int y = row * brickHeight;
 
-            //setting the position
-            brick->setPos(x,y);
+            // Setting the position
+            brick->setPos(x, y);
 
             m_scene->addItem(brick);
-
         }
     }
 }
 
-void ENEMYBRICK::increase()
-{
+void ENEMYBRICK::increase() {
     // Update the score and the score message
-
-    //scene()->removeItem(scoreMsg);
     score++;
     scoreMsg->setPlainText((QString("Score: ") + QString::number(score)));
-    //scene()->addItem(scoreMsg);
+}
+
+bool ENEMYBRICK::checkLevelComplete() {
+    // Check if the score matches the number of bricks for the current level
+    int totalBricks = (1 + level) * (5);
+    bool levelComplete = score >= totalBricks;
+    return levelComplete;
+}
+
+void ENEMYBRICK::nextLevel() {
+    if (level < 5) { // Check if the level cap is hit or not
+        level++;
+        score = 0; // Reset score for new level
+        scoreMsg->setPlainText(QString("Score: ") + QString::number(score));
+
+        // Remove all existing bricks
+        foreach (QGraphicsItem *item, m_scene->items()) {
+            if (ENEMYBRICK *brick = dynamic_cast<ENEMYBRICK *>(item)) {
+                m_scene->removeItem(brick);
+                delete brick;
+            }
+        }
+
+        // Spawn new set of bricks for the next level
+        spawnEnemyBricks(level);
+
+        // Reset ball speed and position
+        respawnBall();
+    } else {
+        //! add here the congrats window with a button to exit. don't forget to remove the debug too.
+        qDebug() << "Game Over! Reached maximum level.";
+    }
 }
 
 void ENEMYBRICK::decrease() {
-    //scene()->removeItem(healthMsg);
     health--;
     healthMsg->setPlainText(QString("Health: ") + QString::number(health));
-    //scene()->addItem(healthMsg);
 
     if (health <= 0) {
         GameOverWindow *gameOverWindow = new GameOverWindow();
@@ -91,7 +114,6 @@ void ENEMYBRICK::decrease() {
         respawnBall();
     }
 }
-
 
 void ENEMYBRICK::respawnBall() {
     // Find the existing ball in the scene and delete it

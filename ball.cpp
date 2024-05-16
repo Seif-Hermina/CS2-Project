@@ -10,8 +10,8 @@ Ball::Ball(QGraphicsScene *scene, QGraphicsItem *parent) : QGraphicsEllipseItem(
     // Set the initial position and size of the ball
     setRect(0, 0, 20, 20);
     // Set the initial velocity of the ball
-    xVelocity = 7;
-    yVelocity = 7;
+    xVelocity = 5;
+    yVelocity = 5;
 
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
@@ -40,7 +40,7 @@ void Ball::checkCollision() {
     if (x() <= 0 || x() + rect().width() >= scene()->width()) {
         xVelocity = -xVelocity; // Reverse the horizontal direction
     }
-    if (y() <= 100) {  //100 so it does not get stuck above score and lives
+    if (y() <= 100) {  // 100 so it does not get stuck above score and lives
         yVelocity = -yVelocity; // Reverse the vertical direction
     }
 
@@ -59,6 +59,12 @@ void Ball::checkCollision() {
             // Remove the enemy brick from the scene
             scene()->removeItem(item);
             delete item; // Delete the brick to free memory
+
+            // Check if the level is complete and move to the next level
+            if (enemyBrick->checkLevelComplete()) {
+                enemyBrick->nextLevel();
+            }
+
             return;
         }
     }
@@ -77,4 +83,10 @@ void Ball::checkCollision() {
 
 void Ball::setEnemyBrick(ENEMYBRICK *brick) {
     enemyBrick = brick;
+
+    // Adjust speed based on level
+    if (enemyBrick) {
+        xVelocity = 5 + enemyBrick->level;
+        yVelocity = 5 + enemyBrick->level;
+    }
 }
