@@ -10,6 +10,8 @@ class Levelpassed : public QWidget {
 
 public:
     explicit Levelpassed(QWidget *parent = nullptr);
+    void keyPressEvent(QKeyEvent * event);
+
 };
 
 #endif // LEVELPASSED_H

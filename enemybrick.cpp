@@ -28,7 +28,7 @@ ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent) : QGraphics
     scoreMsg = new QGraphicsTextItem;
     scoreMsg->setFont(font);
     scoreMsg->setDefaultTextColor(color1);
-    scoreMsg->setPos(650, 10);
+    scoreMsg->setPos(630, 10);
     m_scene->addItem(scoreMsg);
 
     QColor color2(Qt::red);

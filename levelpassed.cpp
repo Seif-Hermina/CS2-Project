@@ -1,4 +1,6 @@
 #include "levelpassed.h"
+#include <QKeyEvent>
+
 
 Levelpassed::Levelpassed(QWidget *parent) : QWidget(parent) {
     // Create the label with the "Level Passed!" message
@@ -16,9 +18,9 @@ Levelpassed::Levelpassed(QWidget *parent) : QWidget(parent) {
     QLabel *instructionLabel = new QLabel("Press space to continue to the next level", this);
 
     // Set the font and color of the instruction label
-    QFont instructionFont("Arial", 12);
+    QFont instructionFont("Arial", 15);
     instructionLabel->setFont(instructionFont);
-    instructionLabel->setStyleSheet("QLabel { color : black; }");
+    instructionLabel->setStyleSheet("QLabel { color : yellow; }");
 
     // Center the instruction label in the window
     instructionLabel->setAlignment(Qt::AlignCenter);
@@ -31,4 +33,12 @@ Levelpassed::Levelpassed(QWidget *parent) : QWidget(parent) {
 
     // Resize the window to be large enough
     resize(400, 300);
+}
+
+void Levelpassed::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Space) {
+        close();
+    } else {
+        QWidget::keyPressEvent(event); // closes window when space is pressed
+    }
 }
