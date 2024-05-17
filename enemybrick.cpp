@@ -25,14 +25,14 @@ ENEMYBRICK::ENEMYBRICK(QGraphicsScene *scene, QGraphicsItem *parent) : QGraphics
     font.setPointSize(30);
 
     QColor color1(Qt::blue);
-    scoreMsg = new QGraphicsTextItem(QString("Score: ") + QString::number(score));
+    scoreMsg = new QGraphicsTextItem;
     scoreMsg->setFont(font);
     scoreMsg->setDefaultTextColor(color1);
     scoreMsg->setPos(650, 10);
     m_scene->addItem(scoreMsg);
 
     QColor color2(Qt::red);
-    healthMsg = new QGraphicsTextItem(QString("Health: ") + QString::number(health));
+    healthMsg = new QGraphicsTextItem;
     healthMsg->setFont(font);
     healthMsg->setDefaultTextColor(color2);
     healthMsg->setPos(10, 10);
